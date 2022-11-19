@@ -25,12 +25,15 @@ def readuploadfile(directory):
     file = os.listdir(directory)
     #print(file)
     for f in file :
-
+        newf = f.replace('.txt','.json')
         comment = readcomment(directory,f)
         comdict = listodict(comment)
-        response = requests.post("http://34.72.125.126/feedback/", data=comdict )
-        print(response.status_code)
+        with open(newf,'w') as f_json:
+            json.dump(comdict,f_json)
 
-    return comdict
+        #response = requests.post("http://00000000/feedback/", data=comdict )
+        #print(response.status_code)
 
-comments = readuploadfile('/data/feedback/')
+    return f_json
+
+comments = readuploadfile('feedback/')
